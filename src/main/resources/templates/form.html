@@ -44,6 +44,10 @@
 				<label for="email" class="form-label">Email</label> <input th:field="${cliente.email}"
 					type="email" class="form-control" id="email">
 			</div>
+						<div class="mb-3">
+				<label for="fecha" class="form-label">Fecha</label> <input th:field="${cliente.createAt}"
+					type="text" placeholder="dd/MM/yyyy" class="form-control" id="fecha">
+			</div>
 
 
 			<button type="submit" class="btn btn-primary">Submit</button>

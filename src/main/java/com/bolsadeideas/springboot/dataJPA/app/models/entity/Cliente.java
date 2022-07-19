@@ -8,10 +8,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PrePersist;
+
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "clientes") // Indicamos el nombre de la tabla de la BDD
@@ -20,22 +24,24 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@NotEmpty
 	private String nombre;
+	@NotEmpty
 	private String apellido;
+	@Email
 	private String email;
 
 	@Column(name = "create_at") // Nombre del campo de la BDD en el caso de que sea diferente
 	@Temporal(TemporalType.DATE) // Formato en el que queremos guardar la fecha
-
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date createAt;
 	
-	
-	
-	@PrePersist //Metodo para que se añada la fecha automaticamente cada vez que hagamos un nuevo registro
+
+/*	@PrePersist //Metodo para que se añada la fecha automaticamente cada vez que hagamos un nuevo registro
 	public void prePersist() {
 		createAt = new Date();
 	}
-
+*/
 	public long getId() {
 		return id;
 	}
