@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -25,7 +26,15 @@ public class Cliente implements Serializable {
 
 	@Column(name = "create_at") // Nombre del campo de la BDD en el caso de que sea diferente
 	@Temporal(TemporalType.DATE) // Formato en el que queremos guardar la fecha
+
 	private Date createAt;
+	
+	
+	
+	@PrePersist //Metodo para que se añada la fecha automaticamente cada vez que hagamos un nuevo registro
+	public void prePersist() {
+		createAt = new Date();
+	}
 
 	public long getId() {
 		return id;
