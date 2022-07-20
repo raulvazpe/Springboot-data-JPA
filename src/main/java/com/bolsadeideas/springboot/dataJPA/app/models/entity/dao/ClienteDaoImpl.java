@@ -10,15 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bolsadeideas.springboot.dataJPA.app.models.entity.Cliente;
 
-
 @Repository
 public class ClienteDaoImpl implements IClienteDao {
 
 	@PersistenceContext
-	private EntityManager em; //necesario para realizar todas las operaciones en la base de datos a nivel de Objeto
-	
+	private EntityManager em; // necesario para realizar todas las operaciones en la base de datos a nivel de
+								// Objeto
+
 	@SuppressWarnings("unchecked")
-	@Transactional(readOnly = true) //Solo lectura
+	@Transactional(readOnly = true) // Solo lectura
 	@Override
 	public List<Cliente> findAll() {
 
@@ -28,8 +28,21 @@ public class ClienteDaoImpl implements IClienteDao {
 	@Override
 	@Transactional
 	public void save(Cliente cliente) {
-		em.persist(cliente);
 		
+		/* Si el id del cliente es diferente a null y es mayor que 0 haremos un merge(actualiza) si no
+		 * haremos un persist(crea) */
+		
+		if (cliente.getId() != 0L && cliente.getId() > 0) {
+			em.merge(cliente);
+		} else {
+			em.persist(cliente);
+		}
+
+	}
+
+	@Override
+	public Cliente findOne(Long id) {
+		return em.find(Cliente.class, id);
 	}
 
 }

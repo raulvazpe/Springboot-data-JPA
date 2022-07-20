@@ -14,6 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,15 +25,19 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@NotEmpty
+	@NotEmpty//(message = "El nombre no puede estar vacio")
 	private String nombre;
-	@NotEmpty
+	
+	@NotEmpty(message = "El apellido no puede estar vacio")
 	private String apellido;
-	@Email
+	
+	@NotEmpty(message = "El email no puede estar vacio")
+	@Email(message = "escribe el email en el formato correcto")
 	private String email;
 
+	@NotNull
 	@Column(name = "create_at") // Nombre del campo de la BDD en el caso de que sea diferente
-	@Temporal(TemporalType.DATE) // Formato en el que queremos guardar la fecha
+	@Temporal(TemporalType.DATE) // Indicamos que solo queremos guardar la fecha (sin hora)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date createAt;
 	

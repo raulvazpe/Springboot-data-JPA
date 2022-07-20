@@ -32,21 +32,25 @@
 
 		<form th:action="@{/form}" th:object="${cliente}" method="POST">
 			<div class="mb-3">
-				<input type="hidden" th:field="${cliente.id}"> <label
-					for="nombre" class="form-label">Nombre</label> <input type="text" th:field="${cliente.nombre}"
+				<input type="hidden" th:field="${cliente.id}" > <label
+					for="nombre" class="form-label">Nombre</label> <input type="text" th:field="*{nombre}"
 					class="form-control" id="nombre" aria-describedby="nombre">
+					<div class="form-text text-danger"th:if="${#fields.hasErrors}" th:errors="*{nombre}"></div>
 			</div>
 			<div class="mb-3">
-				<label for="apellido" class="form-label">Apellido</label> <input th:field="${cliente.apellido}"
+				<label for="apellido" class="form-label">Apellido</label> <input th:field="*{apellido}"
 					type="text" class="form-control" id="apellido">
+					<div class="form-text text-danger" th:if="${#fields.hasErrors}" th:errors="*{apellido}"></div>
 			</div>
 			<div class="mb-3">
-				<label for="email" class="form-label">Email</label> <input th:field="${cliente.email}"
-					type="email" class="form-control" id="email">
+				<label for="email" class="form-label">Email</label> <input th:field="*{email}"
+					type="text" class="form-control" id="email">
+					<div class="form-text text-danger" th:if="${#fields.hasErrors}" th:errors="*{email}"></div>
 			</div>
 						<div class="mb-3">
-				<label for="fecha" class="form-label">Fecha</label> <input th:field="${cliente.createAt}"
+				<label for="fecha" class="form-label">Fecha</label> <input th:field="*{createAt}"
 					type="text" placeholder="dd/MM/yyyy" class="form-control" id="fecha">
+					<div class="form-text text-danger" th:if="${#fields.hasErrors}" th:errors="*{createAt}"></div>
 			</div>
 
 
