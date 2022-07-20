@@ -39,6 +39,7 @@
 			<th>Email</th>
 			<th>Fecha</th>
 			<th>Editar</th>
+			<th>Eliminar</th>
 		</tr>
 		<tr th:each="cliente : ${clientes}">
 			<td th:text="${cliente.id}"></td>
@@ -47,6 +48,8 @@
 			<td th:text="${cliente.email}"></td>
 			<td th:text="${cliente.createAt}"></td>
 			<td><a class="btn btn-primary" th:href="@{./form/} + ${cliente.id}">Editar</a></td>
+			<td><a class="btn btn-primary" th:href="@{./form/eliminar/} + ${cliente.id}">Eliminar</a></td>
+			
 
 		</tr>
 

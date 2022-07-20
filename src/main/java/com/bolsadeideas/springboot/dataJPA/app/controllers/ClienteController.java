@@ -12,18 +12,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.bolsadeideas.springboot.dataJPA.app.models.entity.Cliente;
-import com.bolsadeideas.springboot.dataJPA.app.models.entity.dao.IClienteDao;
+import com.bolsadeideas.springboot.dataJPA.app.models.services.IClienteService;
 
 @Controller
 public class ClienteController {
 	
 	@Autowired
-	private IClienteDao clienteDao;
+	private IClienteService clienteService;
 	
 	@GetMapping("/listar")
 	public String listar(Model model) {
 		model.addAttribute("titulo", "Lista de clientes");
-		model.addAttribute("clientes", clienteDao.findAll());
+		model.addAttribute("clientes", clienteService.findAll());
 	
 		return "listar";
 	}
@@ -43,7 +43,7 @@ public class ClienteController {
 		
 		//Si el id del cliente es mayor que 0 le enviamos al metodo de buscar el id, si no, nos retornara a la lista
 		if(id>0) {
-			cliente = clienteDao.findOne(id);
+			cliente = clienteService.findOne(id);
 		}else{
 			return "redirect: /listar";
 		}
@@ -61,8 +61,19 @@ public class ClienteController {
 			model.addAttribute("titulo", "Formulario de Cliente");
 			return "form";
 		}
-		clienteDao.save(cliente);
+
+		clienteService.save(cliente);
 		return "redirect:listar";
+	}
+	
+	@GetMapping("form/eliminar/{id}")
+	public String delete(@PathVariable Long id) {
+		
+		if(id>0) {
+			clienteService.delete(id);
+		}
+	
+	return "redirect:/listar";
 	}
 	
 }

@@ -1,11 +1,11 @@
-package com.bolsadeideas.springboot.dataJPA.app.models.entity.dao;
+package com.bolsadeideas.springboot.dataJPA.app.models.services;
 
 import java.util.List;
 
 import com.bolsadeideas.springboot.dataJPA.app.models.entity.Cliente;
 
-public interface IClienteDao {
-
+public interface IClienteService {
+	
 	public List<Cliente> findAll();
 	
 	public void save(Cliente cliente);
@@ -13,5 +13,4 @@ public interface IClienteDao {
 	public Cliente findOne(Long id);
 	
 	public Cliente delete(Long id);
-	
 }

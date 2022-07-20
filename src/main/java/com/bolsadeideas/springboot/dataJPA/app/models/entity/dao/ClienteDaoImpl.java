@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.bolsadeideas.springboot.dataJPA.app.models.entity.Cliente;
 
@@ -18,7 +17,6 @@ public class ClienteDaoImpl implements IClienteDao {
 								// Objeto
 
 	@SuppressWarnings("unchecked")
-	@Transactional(readOnly = true) // Solo lectura
 	@Override
 	public List<Cliente> findAll() {
 
@@ -26,12 +24,10 @@ public class ClienteDaoImpl implements IClienteDao {
 	}
 
 	@Override
-	@Transactional
 	public void save(Cliente cliente) {
 		
 		/* Si el id del cliente es diferente a null y es mayor que 0 haremos un merge(actualiza) si no
 		 * haremos un persist(crea) */
-		
 		if (cliente.getId() != 0L && cliente.getId() > 0) {
 			em.merge(cliente);
 		} else {
@@ -43,6 +39,13 @@ public class ClienteDaoImpl implements IClienteDao {
 	@Override
 	public Cliente findOne(Long id) {
 		return em.find(Cliente.class, id);
+	}
+
+	@Override
+	public Cliente delete(Long id) {
+		Cliente cliente = findOne(id);
+		em.remove(cliente);
+		return null;
 	}
 
 }
