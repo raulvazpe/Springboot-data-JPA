@@ -20,7 +20,7 @@ private IClienteDao clienteDao;
 	@Transactional(readOnly = true)
 	public List<Cliente> findAll() {
 		// TODO Auto-generated method stub
-		return clienteDao.findAll();
+		return (List<Cliente>) clienteDao.findAll();
 	}
 
 	@Override
@@ -34,14 +34,19 @@ private IClienteDao clienteDao;
 	@Transactional
 	public Cliente findOne(Long id) {
 		// TODO Auto-generated method stub
-		return clienteDao.findOne(id);
+		return clienteDao.findById(id).orElse(null);
 	}
 
 	@Override
 	@Transactional
-	public Cliente delete(Long id) {
-		// TODO Auto-generated method stub
-		return clienteDao.delete(id);
+	public void delete(Long id) {
+		
+		clienteDao.deleteById(id);
+			
 	}
+
+
+
+
 
 }
