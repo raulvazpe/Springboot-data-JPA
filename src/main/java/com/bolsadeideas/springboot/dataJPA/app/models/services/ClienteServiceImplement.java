@@ -3,6 +3,8 @@ package com.bolsadeideas.springboot.dataJPA.app.models.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,6 +45,12 @@ private IClienteDao clienteDao;
 		
 		clienteDao.deleteById(id);
 			
+	}
+
+	@Override
+	public Page<Cliente> findAll(Pageable page) {
+		// TODO Auto-generated method stub
+		return clienteDao.findAll(page);
 	}
 
 
